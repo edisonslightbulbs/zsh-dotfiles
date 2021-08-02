@@ -38,6 +38,11 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     export VISUAL=/usr/bin/vim
 fi
 
+# persist gnu-sed in darwin
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
+
 # persist lib path in darwin
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export LIBRARY_PATH=/usr/local/lib
