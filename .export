@@ -1,20 +1,20 @@
 #!/bin/zsh
 
-# terminal:
+# terminal
 GPG_TTY=$(tty)
 export GPG_TTY
 
-#timeout:
+#timeout
 export KEYTIMEOUT=1
 
-# terminal user name:
+# terminal user name
 DEFAULT_USER=$(id -un)
 export DEFAULT_USER
 
-# LANG:
+# lang
 export LC_ALL=en_US.UTF-8
 
-# colors:
+# colors
 export TERM="xterm-256color"
 
 # persist .cabal bin
@@ -57,20 +57,30 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="/usr/local/opt/llvm/bin:$PATH"
 fi
 
-# FUZZY FIND CONFIG:
+# persist fzf in both linux-gnu and darwin
 export FZF_BASE="$HOME/.fzf"
-
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 fi
-
 export FZF_DEFAULT_OPTS='--layout=reverse --height  20'
-
-#TODO: update
 FZF_ROOT=$HOME
 export FZF_ROOT
+
+# persist CUDA 11.2 for TENSOR FLOW 2.6.0
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+    export CUDA_HOME=/usr/local/cuda
+fi
+
+# persist cuDNN 8.1.0 for TENSOR FLOW 2.6.0
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    export PATH=/usr/lib/x86_64-linux-gnu${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+fi
+
 
 # VAR DEFINITION:
 DOTFILES_LIST=$HOME/dotfiles/resources/other/dotfiles.txt
